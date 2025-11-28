@@ -430,7 +430,7 @@ export default function ComedianWebsite() {
               Kwame Obed
             </div>
             <p className="space-mono text-[10px] text-[#FAF7F2]/40 tracking-wider">
-              © 2025 All Rights Reserved. Made with ❤️ in Ghana.
+              © 2025 All Rights Reserved.
             </p>
           </div>
         </div>
