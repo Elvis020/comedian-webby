@@ -1,26 +1,138 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
+}
+
+@layer components {
+    .debugging {
+        border: 1px solid #f05252;
+    }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.playfair {
+    font-family: var(--font-playfair), serif;
+}
+
+.space-mono {
+    font-family: var(--font-space-mono), monospace;
+}
+
+.syne {
+    font-family: var(--font-syne), sans-serif;
+}
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.hero-pattern-light {
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(34, 139, 34, 0.05) 2px,
+        rgba(34, 139, 34, 0.05) 4px
+    );
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.hero-pattern-dark {
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.03) 2px,
+        rgba(255, 255, 255, 0.03) 4px
+    );
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scrollPulse {
+    0%,
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scaleY(0.5);
+        opacity: 0.5;
+    }
+}
+
+.animate-fade-up {
+    animation: fadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+.animate-fade-up-delay {
+    animation: fadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.3s forwards;
+    opacity: 0;
+}
+.animate-scroll {
+    animation: scrollPulse 2s ease infinite;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+    animation: revealCircle 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes revealCircle {
+    from {
+        clip-path: circle(0px at var(--x, 50%) var(--y, 50%));
+    }
+    to {
+        clip-path: circle(
+            var(--end-radius, 1000px) at var(--x, 50%) var(--y, 50%)
+        );
+    }
+}
+
+/* Ensure smooth rendering */
+::view-transition-group(root) {
+    animation-duration: 0.6s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }

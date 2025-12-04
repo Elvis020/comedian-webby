@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,19 +6,17 @@ import { Moon, Sun } from "lucide-react";
 
 export default function ComedianWebsite() {
   const [activeSection, setActiveSection] = useState("media");
-  const [darkMode, setDarkMode] = useState(false);
 
-  // Check for saved preference on mount
-  useEffect(() => {
-    const saved = localStorage.getItem("darkMode");
-    if (saved !== null) {
-      setDarkMode(JSON.parse(saved));
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("darkMode");
+      return saved === "true";
     }
-  }, []);
+    return false;
+  });
 
-  // Save preference when changed
   useEffect(() => {
-    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+    localStorage.setItem("darkMode", String(darkMode));
   }, [darkMode]);
 
   const upcomingShows = [
@@ -93,6 +90,43 @@ export default function ComedianWebsite() {
     { name: "Facebook", icon: "FB" },
   ];
 
+  // Toggle dark mode with view transition
+  const toggleDarkMode = async () => {
+    // Check if the browser supports View Transitions API
+    if (!document.startViewTransition) {
+      // Fallback for browsers that don't support it
+      setDarkMode(!darkMode);
+      localStorage.setItem("darkMode", JSON.stringify(!darkMode));
+      return;
+    }
+
+    // Get the button position for the circular reveal
+    const button = document.querySelector(".bulb-btn");
+    const rect = (button as Element).getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    // Calculate the radius needed to cover the entire screen
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    );
+
+    // Set CSS custom properties for the animation
+    document.documentElement.style.setProperty("--x", `${x}px`);
+    document.documentElement.style.setProperty("--y", `${y}px`);
+    document.documentElement.style.setProperty(
+      "--end-radius",
+      `${endRadius}px`,
+    );
+
+    // Use View Transitions API for smooth animation
+    document.startViewTransition(() => {
+      setDarkMode(!darkMode);
+      localStorage.setItem("darkMode", JSON.stringify(!darkMode));
+    });
+  };
+
   return (
     <div
       className={`min-h-screen overflow-x-hidden transition-colors duration-500 ${
@@ -100,81 +134,6 @@ export default function ComedianWebsite() {
       }`}
       style={{ fontFamily: "'Syne', system-ui, sans-serif" }}
     >
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
-
-        .playfair { font-family: 'Playfair Display', serif; }
-        .space-mono { font-family: 'Space Mono', monospace; }
-        .syne { font-family: 'Syne', sans-serif; }
-
-        .noise-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          z-index: 9999;
-          opacity: 0.02;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        .hero-pattern-light {
-          background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(34, 139, 34, 0.05) 2px, rgba(34, 139, 34, 0.05) 4px);
-          clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
-        }
-
-        .hero-pattern-dark {
-          background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
-          clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
-        }
-
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(40px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes scrollPulse {
-          0%, 100% { transform: scaleY(1); opacity: 1; }
-          50% { transform: scaleY(0.5); opacity: 0.5; }
-        }
-
-        .animate-fade-up { animation: fadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-        .animate-fade-up-delay { animation: fadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.3s forwards; opacity: 0; }
-        .animate-scroll { animation: scrollPulse 2s ease infinite; }
-
-        /* Bulb button styles */
-        .bulb-btn {
-          position: relative;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          border: none;
-          background: transparent;
-        }
-
-        .bulb-btn:hover {
-          transform: scale(1.1);
-        }
-
-        .bulb-btn:active {
-          transform: scale(0.95);
-        }
-
-        .bulb-icon {
-          transition: all 0.3s ease;
-        }
-
-        .bulb-icon.on {
-          filter: drop-shadow(0 0 8px #FFD700) drop-shadow(0 0 16px #FFD700);
-        }
-      `}</style>
-
       <div className="noise-overlay"></div>
 
       {/* Header */}
@@ -185,7 +144,7 @@ export default function ComedianWebsite() {
             : "bg-gradient-to-b from-white to-transparent"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+        <div className="max-w-6xl mx-auto px-6  flex justify-between items-center">
           <Link
             href="#"
             className={`playfair text-2xl font-extrabold tracking-tight hover:opacity-80 transition-opacity ${
@@ -228,7 +187,7 @@ export default function ComedianWebsite() {
 
             {/* Bulb Icon Toggle */}
             <button
-              onClick={() => setDarkMode(!darkMode)}
+              onClick={toggleDarkMode}
               className="bulb-btn"
               aria-label={
                 darkMode ? "Switch to light mode" : "Switch to dark mode"
@@ -238,7 +197,7 @@ export default function ComedianWebsite() {
               {darkMode ? (
                 <Sun size={17} className=" text-white transition-all" />
               ) : (
-                <Moon size={17} className=" text-[#1A1A1A] transition-all" />
+                <Moon size={17} className=" text-[#228B22] transition-all" />
               )}
             </button>
 
@@ -258,7 +217,7 @@ export default function ComedianWebsite() {
 
       {/* Hero */}
       <section
-        className={`min-h-screen flex items-center relative pt-24 overflow-hidden transition-colors duration-500 ${
+        className={`min-h-screen flex items-center relative pt-24 -mt-32 lg:mt-0 overflow-hidden transition-colors duration-500 ${
           darkMode ? "bg-[#0A0A0A]" : "bg-[#FAFAFA]"
         }`}
       >
