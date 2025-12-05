@@ -90,7 +90,9 @@ export function MediaSection({ darkMode }: { darkMode: boolean }) {
               )}
               {/* Hover overlay */}
               <div
-                className={`absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 to-transparent opacity-0 ${item.type === "image" ? "group-hover:opacity-100" : "group-hover:opacity-20"} transition-opacity flex flex-col justify-end p-5 pointer-events-none`}
+                className={`absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 to-transparent opacity-0 
+                  ${item.type === "image" ? "group-hover:opacity-100" : "group-hover:opacity-20"} 
+                  transition-opacity flex flex-col justify-end p-5 pointer-events-none`}
               >
                 <span
                   className={`space-mono text-[10px] uppercase tracking-widest ${

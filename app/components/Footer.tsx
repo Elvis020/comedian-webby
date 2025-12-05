@@ -1,7 +1,16 @@
+"use client";
 import { socials } from "@/lib/consts";
 import Link from "next/link";
 
 export function Footer({ darkMode }: { darkMode: boolean }) {
+  const phone = "233599226332";
+
+  const linkBase =
+    "w-full text-center py-3 border-2 space-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2";
+  const themeLink = darkMode
+    ? "border-white/20 text-white hover:bg-white hover:border-white hover:text-[#0A0A0A]"
+    : "border-[#1A1A1A]/20 text-[#1A1A1A] hover:bg-[#228B22] hover:border-[#228B22] hover:text-white";
+
   return (
     <footer
       className={`py-16 px-6 border-t transition-colors duration-500 ${
@@ -26,6 +35,7 @@ export function Footer({ darkMode }: { darkMode: boolean }) {
             </Link>
           ))}
         </div>
+
         <div className="flex flex-col items-center gap-4 w-full max-w-sm">
           <span
             className={`space-mono text-[10px] uppercase tracking-[0.3em] ${
@@ -34,26 +44,36 @@ export function Footer({ darkMode }: { darkMode: boolean }) {
           >
             Quick Links
           </span>
+
           <div className="flex flex-col gap-3 w-full">
-            {[
-              "📧 Booking Inquiries",
-              "🎫 Buy Tickets",
-              "📺 YouTube Channel",
-            ].map((link, i) => (
-              <Link
-                key={i}
-                href="#"
-                className={`w-full text-center py-3 border-2 space-mono text-xs uppercase tracking-wider transition-all ${
-                  darkMode
-                    ? "border-white/20 text-white hover:bg-white hover:border-white hover:text-[#0A0A0A]"
-                    : "border-[#1A1A1A]/20 text-[#1A1A1A] hover:bg-[#228B22] hover:border-[#228B22] hover:text-white"
-                }`}
-              >
-                {link}
-              </Link>
-            ))}
+            <div
+              className={`w-full text-center py-3 border-2 space-mono text-xs uppercase tracking-wider cursor-default ${
+                darkMode
+                  ? "border-white/15 text-white/60 bg-white/5"
+                  : "border-[#1A1A1A]/15 text-[#1A1A1A]/60 bg-black/5"
+              }`}
+            >
+              kwameobed@gmail.com
+            </div>
+
+            <Link
+              href={`https://wa.me/${phone}`}
+              target="_blank"
+              className={`${linkBase} ${themeLink}`}
+            >
+              Chat on WhatsApp
+            </Link>
+
+            <Link href="#" className={`${linkBase} ${themeLink}`}>
+              🎫 Buy Tickets
+            </Link>
+
+            <Link href="#" className={`${linkBase} ${themeLink}`}>
+              📺 YouTube Channel
+            </Link>
           </div>
         </div>
+
         <div className="text-center">
           <div
             className={`playfair text-xl font-extrabold mb-2 ${

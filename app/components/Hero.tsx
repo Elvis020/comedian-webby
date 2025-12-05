@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+
+
 export function Hero({ darkMode }: { darkMode: boolean }) {
   return (
     <section
@@ -103,7 +105,7 @@ export function Hero({ darkMode }: { darkMode: boolean }) {
                   darkMode ? "text-[#0A0A0A]" : "text-white"
                 }`}
               >
-                10+
+                5+
               </span>
               <span
                 className={`space-mono text-[10px] uppercase tracking-widest ${

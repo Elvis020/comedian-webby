@@ -1,7 +1,6 @@
 export const socials = [
   { name: "Instagram", icon: "IG" },
   { name: "TikTok", icon: "TK" },
-  { name: "YouTube", icon: "YT" },
   { name: "Twitter", icon: "X" },
   { name: "Facebook", icon: "FB" },
 ];
