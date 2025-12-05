@@ -13,17 +13,28 @@ import {
 } from "./components";
 
 export default function ComedianWebsite() {
-  const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("darkMode");
-      return saved === "true";
-    }
-    return false;
-  });
+  const [mounted, setMounted] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
+  // Only runs once on mount - reads from localStorage
   useEffect(() => {
-    localStorage.setItem("darkMode", String(darkMode));
-  }, [darkMode]);
+    setMounted(true);
+    const saved = localStorage.getItem("darkMode");
+    if (saved !== null) {
+      setDarkMode(saved === "true");
+    }
+  }, []);
+
+  // Separate effect to save to localStorage when darkMode changes
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem("darkMode", JSON.stringify(darkMode));
+    }
+  }, [darkMode, mounted]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div

@@ -1,3 +1,4 @@
+"use client";
 import { Moon, Sun } from "lucide-react";
 import Link from "next/link";
 
@@ -12,15 +13,15 @@ export function Header({
   const toggleDarkMode = async () => {
     // Check if the browser supports View Transitions API
     if (!document.startViewTransition) {
-      // Fallback for browsers that don't support it
       setDarkMode(!darkMode);
-      localStorage.setItem("darkMode", JSON.stringify(!darkMode));
       return;
     }
 
     // Get the button position for the circular reveal
     const button = document.querySelector(".bulb-btn");
-    const rect = (button as Element).getBoundingClientRect();
+    if (!button) return;
+
+    const rect = button.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
     const y = rect.top + rect.height / 2;
 
@@ -41,9 +42,9 @@ export function Header({
     // Use View Transitions API for smooth animation
     document.startViewTransition(() => {
       setDarkMode(!darkMode);
-      localStorage.setItem("darkMode", JSON.stringify(!darkMode));
     });
   };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 py-4 backdrop-blur-md transition-colors duration-500 ${
