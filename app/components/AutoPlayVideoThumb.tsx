@@ -33,22 +33,28 @@ export default function AutoPlayVideoThumb({
   const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}&autoplay=1`;
   const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${
     visible ? 1 : 0
-  }&mute=1&playsinline=1`;
+  }&mute=1&playsinline=1&controls=1`;
 
   return (
-    <div
-      ref={ref}
-      className={`relative w-full h-full ${className} cursor-pointer`}
-      onClick={() => window.open(youtubeUrl, "_blank")}
-    >
+    <div ref={ref} className={`relative w-full h-full ${className}`}>
       <iframe
         src={embedUrl}
         className="w-full h-full object-cover"
         allow="autoplay; encrypted-media"
       />
 
-      {/* invisible overlay ensures click goes to YouTube instead of pausing */}
-      <div className="absolute inset-0"></div>
+      {/* Button to open on YouTube (does NOT block the video) */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation(); // don’t trigger grid parent clicks
+          window.open(youtubeUrl, "_blank");
+        }}
+        className={`absolute bottom-20 hover:cursor-pointer hover:scale-110 right-3 px-3 py-2 rounded-md text-xs space-mono uppercase tracking-wide shadow-md transition-all
+          ${darkMode ? "bg-white text-[#0A0A0A]" : "bg-[#228B22] text-white"}
+        `}
+      >
+        Open on YouTube
+      </button>
     </div>
   );
 }

@@ -7,6 +7,14 @@ import AutoPlayVideoThumb from "./AutoPlayVideoThumb";
 export function MediaSection({ darkMode }: { darkMode: boolean }) {
   const [activeSection, setActiveSection] = useState("media");
 
+  // Filter media items based on active section
+  const filteredItems = mediaItems.filter(
+    (item) =>
+      activeSection === "media" ||
+      (activeSection === "videos" && item.type === "video") ||
+      (activeSection === "photos" && item.type === "image"),
+  );
+
   return (
     <section
       className={`py-24 px-6 transition-colors duration-500 ${
@@ -32,12 +40,15 @@ export function MediaSection({ darkMode }: { darkMode: boolean }) {
               Caught on Camera
             </h2>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 relative z-10">
             {["media", "videos", "photos"].map((tab) => (
               <button
                 key={tab}
-                onClick={() => setActiveSection(tab)}
-                className={`px-5 py-3 space-mono text-xs uppercase tracking-wider border-2 transition-all ${
+                onClick={() => {
+                  console.log("Clicked:", tab); // Debug log
+                  setActiveSection(tab);
+                }}
+                className={`px-5 py-3 space-mono text-xs uppercase tracking-wider border-2 transition-all cursor-pointer ${
                   activeSection === tab
                     ? darkMode
                       ? "bg-white border-white text-[#0A0A0A]"
@@ -53,7 +64,7 @@ export function MediaSection({ darkMode }: { darkMode: boolean }) {
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {mediaItems.map((item, i) => (
+          {filteredItems.map((item, i) => (
             <div
               key={i}
               className={`relative aspect-square overflow-hidden cursor-pointer group ${
@@ -65,19 +76,20 @@ export function MediaSection({ darkMode }: { darkMode: boolean }) {
                   src={item.src ?? ""}
                   alt={item.title}
                   fill
-                  className={`object-cover w-full h-full transition-transform duration-700 group-hover:scale-110`}
+                  className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                   sizes="(max-width: 768px) 50vw, 33vw"
                 />
               ) : (
-                <AutoPlayVideoThumb
-                  videoId={item.videoId ?? ""}
-                  darkMode={darkMode}
-                  className="w-full h-full"
-                />
+                <div className="relative w-full h-full">
+                  <AutoPlayVideoThumb
+                    videoId={item.videoId ?? ""}
+                    darkMode={darkMode}
+                    className="w-full h-full"
+                  />
+                </div>
               )}
-
-              {/* KEEP your hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-5">
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 to-transparent opacity-0 group-hover:opacity-20 transition-opacity flex flex-col justify-end p-5 pointer-events-none">
                 <span
                   className={`space-mono text-[10px] uppercase tracking-widest ${
                     darkMode ? "text-white/70" : "text-[#90EE90]"
