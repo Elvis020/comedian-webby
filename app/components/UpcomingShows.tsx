@@ -16,7 +16,7 @@ export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
               darkMode ? "text-white" : "text-[#228B22]"
             }`}
           >
-            On Tour
+            Up Next
           </span>
           <h2
             className={`playfair text-4xl md:text-5xl font-extrabold tracking-tight mt-2 ${

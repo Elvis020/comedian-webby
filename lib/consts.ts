@@ -1,8 +1,20 @@
 export const socials = [
-  { name: "Instagram", icon: "IG" },
-  { name: "TikTok", icon: "TK" },
-  { name: "Twitter", icon: "X" },
-  { name: "Facebook", icon: "FB" },
+  {
+    name: "Instagram",
+    icon: "IG",
+    link: "https://www.instagram.com/kwame__obed?igsh=MWl4bW1jdjVpanh4Yg==",
+  },
+  {
+    name: "TikTok",
+    icon: "TK",
+    link: "https://www.tiktok.com/@kwameobed001?_r=1&_t=ZM-91yMcve6Rss",
+  },
+  { name: "Twitter", icon: "X", link: "https://x.com/comedianko?s=21" },
+  {
+    name: "Facebook",
+    icon: "FB",
+    link: "https://www.facebook.com/share/16hwCsoWpr/?mibextid=wwXIfr",
+  },
 ];
 
 export const upcomingShows = [

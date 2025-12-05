@@ -46,7 +46,7 @@ export default function AutoPlayVideoThumb({
       {/* Button to open on YouTube (does NOT block the video) */}
       <button
         onClick={(e) => {
-          e.stopPropagation(); // don’t trigger grid parent clicks
+          e.stopPropagation();
           window.open(youtubeUrl, "_blank");
         }}
         className={`absolute bottom-20 hover:cursor-pointer hover:scale-110 right-3 px-3 py-2 rounded-md text-xs space-mono uppercase tracking-wide shadow-md transition-all

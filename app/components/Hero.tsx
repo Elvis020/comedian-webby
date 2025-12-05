@@ -1,14 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 
-
 export function Hero({ darkMode }: { darkMode: boolean }) {
   return (
     <section
-      className={`min-h-screen flex items-center relative pt-24 -mt-32 lg:mt-0 overflow-hidden transition-colors duration-500 ${
+      className={`min-h-screen flex items-center relative pt-32 overflow-hidden transition-colors duration-500 ${
         darkMode ? "bg-[#0A0A0A]" : "bg-[#FAFAFA]"
       }`}
     >
+      <div
+        className={`
+          absolute inset-0 md:hidden
+          bg-[url('/images/image00028.jpeg')]
+          bg-cover bg-center opacity-20
+          ${darkMode ? "opacity-10" : "opacity-20"}
+        `}
+      ></div>
+
       <div
         className={`absolute top-0 right-0 w-3/5 h-full hidden md:block ${
           darkMode ? "hero-pattern-dark" : "hero-pattern-light"

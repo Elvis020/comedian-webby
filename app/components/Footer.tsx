@@ -24,7 +24,8 @@ export function Footer({ darkMode }: { darkMode: boolean }) {
           {socials.map((s, i) => (
             <Link
               key={i}
-              href="#"
+              target="_blank"
+              href={s.link}
               className={`w-12 h-12 border-2 flex items-center justify-center space-mono text-xs font-bold hover:-translate-y-1 transition-all ${
                 darkMode
                   ? "border-white/20 text-white hover:bg-white hover:border-white hover:text-[#0A0A0A]"
@@ -68,7 +69,11 @@ export function Footer({ darkMode }: { darkMode: boolean }) {
               🎫 Buy Tickets
             </Link>
 
-            <Link href="#" className={`${linkBase} ${themeLink}`}>
+            <Link
+              target="_blank"
+              href="https://www.youtube.com/@comediankwameobed"
+              className={`${linkBase} ${themeLink}`}
+            >
               📺 YouTube Channel
             </Link>
           </div>
