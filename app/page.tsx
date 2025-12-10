@@ -11,9 +11,8 @@ import {
 
 export default function ComedianWebsite() {
   const [mounted, setMounted] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
-  // Only runs once on mount - reads from localStorage
   useEffect(() => {
     setMounted(true);
     const saved = localStorage.getItem("darkMode");
@@ -22,7 +21,6 @@ export default function ComedianWebsite() {
     }
   }, []);
 
-  // Separate effect to save to localStorage when darkMode changes
   useEffect(() => {
     if (mounted) {
       localStorage.setItem("darkMode", JSON.stringify(darkMode));
