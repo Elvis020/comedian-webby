@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { upcomingShows } from "@/lib/consts";
 import Link from "next/link";
 import Image from "next/image";
@@ -119,6 +119,19 @@ function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const hasFlyer = show.flyer !== null && show.flyer !== undefined;
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isExpanded) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isExpanded]);
+
   return (
     <>
       {/* Main Card */}
@@ -204,7 +217,7 @@ function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
       {/* Expanded Flyer Modal */}
       {isExpanded && hasFlyer && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
           onClick={() => setIsExpanded(false)}
         >
           <div

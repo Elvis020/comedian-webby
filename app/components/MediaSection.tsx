@@ -44,7 +44,7 @@ export function MediaSection({ darkMode }: { darkMode: boolean }) {
             }`}
         />
       </div>
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative">
         <div className="flex justify-between items-end mb-12 flex-wrap gap-6">
           <div>
             <span
@@ -60,7 +60,7 @@ export function MediaSection({ darkMode }: { darkMode: boolean }) {
               Caught on Camera
             </h2>
           </div>
-          <div className="flex gap-2 relative z-10">
+          <div className="flex gap-2 relative">
             {["media", "videos", "photos"].map((tab) => (
               <button
                 key={tab}
