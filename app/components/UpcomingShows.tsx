@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import { upcomingShows } from "@/lib/consts";
 import Link from "next/link";
 import Image from "next/image";
@@ -114,99 +116,123 @@ export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
 }
 
 function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const hasFlyer = show.flyer !== null && show.flyer !== undefined;
 
   return (
-    <div
-      className={`group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl ${darkMode
-        ? "bg-[#252525] shadow-lg shadow-black/20"
-        : "bg-white shadow-lg shadow-black/10"
-        }`}
-    >
-      {/* Flyer Image */}
-      {hasFlyer ? (
-        <div className="relative w-full aspect-[3/4] md:aspect-[4/5]">
-          <Image
-            src={show.flyer}
-            alt={`${show.venue} event flyer`}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+    <>
+      {/* Main Card */}
+      <div
+        className={`group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl ${darkMode
+          ? "bg-[#252525] shadow-lg shadow-black/20"
+          : "bg-white shadow-lg shadow-black/10"
+          }`}
+      >
+        <div className="flex h-44">
+          {/* Left Side - Flyer Thumbnail (33%) */}
+          {hasFlyer && (
+            <button
+              onClick={() => setIsExpanded(true)}
+              className="relative w-1/3 shrink-0 cursor-pointer overflow-hidden group/flyer"
+              aria-label="View flyer details"
+            >
+              <Image
+                src={show.flyer}
+                alt={`${show.venue} event flyer`}
+                fill
+                className="object-cover transition-transform duration-300 group-hover/flyer:scale-110"
+                sizes="200px"
+              />
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/flyer:opacity-100 transition-opacity flex items-center justify-center">
+                <span className="text-white text-2xl">🔍</span>
+              </div>
+            </button>
+          )}
 
-          {/* Content over flyer */}
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <div className="playfair text-3xl md:text-4xl font-extrabold text-white mb-1">
-                  {show.date}
+          {/* Right Side - Show Details (67%) */}
+          <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between">
+            {/* Date Badge */}
+            <div className="flex items-start gap-4">
+              <div
+                className={`shrink-0 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-xl ${darkMode ? "bg-white/10" : "bg-[#228B22]/10"
+                  }`}
+              >
+                <div
+                  className={`playfair text-lg sm:text-xl font-extrabold text-center leading-tight ${darkMode ? "text-white" : "text-[#228B22]"
+                    }`}
+                >
+                  {show.date.split(" ")[0]}
+                  <br />
+                  <span className="text-sm sm:text-base">{show.date.split(" ")[1]}</span>
                 </div>
-                <div className="syne text-lg font-semibold text-white/90">
+              </div>
+
+              {/* Info */}
+              <div className="flex-1 min-w-0">
+                <div
+                  className={`syne text-base sm:text-lg font-semibold line-clamp-1 ${darkMode ? "text-white" : "text-[#1A1A1A]"
+                    }`}
+                >
                   {show.venue}
                 </div>
-                <div className="space-mono text-xs uppercase tracking-wider text-white/70 mt-1">
+                <div
+                  className={`space-mono text-[10px] sm:text-xs uppercase tracking-wider mt-1 ${darkMode ? "text-white/60" : "text-[#1A1A1A]/60"
+                    }`}
+                >
                   {show.city} • {show.time}
                 </div>
               </div>
+            </div>
+
+            {/* Button - with proper z-index for mobile */}
+            <div className="mt-3 relative z-20">
               <Link
                 href={show.ticketLink}
-                className="shrink-0 space-mono text-xs font-bold uppercase tracking-wider px-4 py-3 bg-[#228B22] text-white border-2 border-[#228B22] rounded-lg transition-all hover:bg-[#1a6b1a] hover:border-[#1a6b1a]"
+                className={`inline-block space-mono text-xs font-bold uppercase tracking-wider px-4 py-2.5 border-2 rounded-lg transition-all text-center ${darkMode
+                  ? "bg-white text-[#0A0A0A] border-white hover:bg-gray-200 hover:border-gray-200 active:bg-gray-300"
+                  : "bg-[#228B22] text-white border-[#228B22] hover:bg-[#1a6b1a] hover:border-[#1a6b1a] active:bg-[#145414]"
+                  }`}
               >
-                Tickets
+                Get Tickets
               </Link>
             </div>
           </div>
         </div>
-      ) : (
-        /* No Flyer - Simple Card */
-        <div className="p-6">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-            {/* Date Badge */}
-            <div
-              className={`shrink-0 w-20 h-20 flex items-center justify-center rounded-xl ${darkMode ? "bg-white/10" : "bg-[#228B22]/10"
-                }`}
-            >
-              <div
-                className={`playfair text-2xl font-extrabold text-center leading-tight ${darkMode ? "text-white" : "text-[#228B22]"
-                  }`}
-              >
-                {show.date.split(" ")[0]}
-                <br />
-                <span className="text-lg">{show.date.split(" ")[1]}</span>
-              </div>
-            </div>
+      </div>
 
-            {/* Info */}
-            <div className="flex-1">
-              <div
-                className={`syne text-xl font-semibold ${darkMode ? "text-white" : "text-[#1A1A1A]"
-                  }`}
-              >
-                {show.venue}
-              </div>
-              <div
-                className={`space-mono text-xs uppercase tracking-wider mt-1 ${darkMode ? "text-white/60" : "text-[#1A1A1A]/60"
-                  }`}
-              >
-                {show.city} • {show.time}
-              </div>
-            </div>
-
-            {/* Button */}
-            <Link
-              href={show.ticketLink}
-              className={`shrink-0 space-mono text-xs font-bold uppercase tracking-wider px-5 py-3 border-2 rounded-lg transition-all text-center ${darkMode
-                ? "bg-white text-[#0A0A0A] border-white hover:bg-gray-200 hover:border-gray-200"
-                : "bg-[#228B22] text-white border-[#228B22] hover:bg-[#1a6b1a] hover:border-[#1a6b1a]"
-                }`}
+      {/* Expanded Flyer Modal */}
+      {isExpanded && hasFlyer && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={() => setIsExpanded(false)}
+        >
+          <div
+            className="relative max-w-lg w-full max-h-[90vh] overflow-hidden rounded-2xl shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setIsExpanded(false)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+              aria-label="Close"
             >
-              Get Tickets
-            </Link>
+              ✕
+            </button>
+
+            {/* Full Flyer Image */}
+            <div className="relative w-full aspect-[3/4]">
+              <Image
+                src={show.flyer}
+                alt={`${show.venue} event flyer`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 500px"
+              />
+            </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
