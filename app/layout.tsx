@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { playfair, spaceMono, syne } from "@/lib/fonts";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Comedian Kwame Obed",
@@ -28,10 +29,11 @@ export const metadata: Metadata = {
       "Laugh with Kwame Obed — skits, stand-up comedy, shows, and authentic Ghanaian humour.",
     url: "https://www.kwameobed.com",
     siteName: "Kwame Obed",
+    locale: "en_GH",
     type: "website",
     images: [
       {
-        url: "/images/image00028.webp", // create later (1200x630)
+        url: "https://www.kwameobed.com/images/image00028.webp",
         width: 1200,
         height: 630,
         alt: "Kwame Obed – Ghanaian Comedian",
@@ -43,7 +45,7 @@ export const metadata: Metadata = {
     title: "Kwame Obed – Ghanaian Comedian",
     description:
       "Skits, stand-up comedy, and authentic Ghanaian humour by Kwame Obed.",
-    images: ["/images/image00028.webp"],
+    images: ["https://www.kwameobed.com/images/image00028.webp"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -58,6 +60,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9759952890681134"
+        crossOrigin="anonymous"
+      />
       <body
         className={`antialiased ${playfair.variable} ${spaceMono.variable} ${syne.variable}`}
       >
