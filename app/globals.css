@@ -162,6 +162,42 @@ body {
     animation: slideInRight 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+/* Festive Snowfall Animation */
+@keyframes snowfall {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.animate-snowfall {
+    animation: snowfall linear infinite;
+}
+
+/* Festive shimmer effect for accents */
+@keyframes shimmer {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
     animation: none;

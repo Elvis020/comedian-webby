@@ -1,5 +1,5 @@
 "use client";
-import { socials } from "@/lib/consts";
+import { socials, CHRISTMAS_MODE } from "@/lib/consts";
 import Link from "next/link";
 
 // Social Media Icons with Brand Colors
@@ -117,13 +117,15 @@ export function Footer({ darkMode }: { darkMode: boolean }) {
             className={`playfair text-xl font-extrabold mb-2 ${darkMode ? "text-white" : "text-[#228B22]"
               }`}
           >
-            Comedian Kwame Obed
+            {CHRISTMAS_MODE && <span className="inline-block animate-shimmer">❄️</span>}
+            {CHRISTMAS_MODE ? " " : ""}Comedian Kwame Obed{CHRISTMAS_MODE ? " " : ""}
+            {CHRISTMAS_MODE && <span className="inline-block animate-shimmer">🎄</span>}
           </div>
           <p
             className={`space-mono text-[10px] tracking-wider ${darkMode ? "text-white/40" : "text-[#1A1A1A]/40"
               }`}
           >
-            © 2025 All Rights Reserved.
+            {CHRISTMAS_MODE ? "✨ Happy Holidays! " : ""}© 2025 All Rights Reserved.{CHRISTMAS_MODE ? " ✨" : ""}
           </p>
         </div>
       </div>

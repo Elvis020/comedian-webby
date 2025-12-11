@@ -4,3 +4,4 @@ export * from "./Header";
 export * from "./MediaSection";
 export * from "./UpcomingShows";
 export * from "./Hero";
+export * from "./Snowfall";

@@ -1,3 +1,6 @@
+// 🎄 FESTIVE MODE - Set to false to disable all Christmas decorations
+export const CHRISTMAS_MODE = true;
+
 export const socials = [
   {
     name: "Instagram",
