@@ -42,68 +42,8 @@ export function Header({
     });
   };
 
-  const [scrolled, setScrolled] = useState(false);
-  const [isHeroInView, setIsHeroInView] = useState(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentHash, setCurrentHash] = useState("");
-  const [visibleSection, setVisibleSection] = useState("");
-  const pathname = usePathname();
-
-  const phone = "233599226332";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const heroSection = document.getElementById("hero");
-    if (!heroSection) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsHeroInView(entry.isIntersecting);
-      },
-      { threshold: 0.1 },
-    );
-
-    observer.observe(heroSection);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    // Handle hash navigation after page load
-    const hash = window.location.hash;
-    setCurrentHash(hash);
-    if (hash) {
-      // Small delay to ensure DOM is ready
-      setTimeout(() => {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 100);
-    }
-  }, [pathname]);
-
-  // Track hash changes
-  useEffect(() => {
-    const handleHashChange = () => {
-      setCurrentHash(window.location.hash);
-    };
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
-
-  // Track visible sections on scroll
-  useEffect(() => {
+  const visibilityObserver = () => {
+    // Track visible sections on scroll
     const sections = ["hero", "shows", "media", "bio"];
     const sectionElements = new Map<string, Element>();
 
@@ -161,7 +101,76 @@ export function Header({
     return () => {
       observer.disconnect();
     };
+  };
+
+  const heroSectionObserver = () => {
+    const heroSection = document.getElementById("hero");
+    if (!heroSection) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(heroSection);
+
+    return () => {
+      observer.disconnect();
+    };
+  };
+
+  const handleScrollObserver = () => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  };
+
+  const handleHashChange = () => {
+    // Track hash changes
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  };
+
+  const [scrolled, setScrolled] = useState(false);
+  const [isHeroInView, setIsHeroInView] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentHash, setCurrentHash] = useState("");
+  const [visibleSection, setVisibleSection] = useState("");
+  const pathname = usePathname();
+
+  const phone = "233599226332";
+
+  useEffect(() => {
+    visibilityObserver();
+    heroSectionObserver();
+    handleScrollObserver();
+    handleHashChange();
   }, []);
+
+  useEffect(() => {
+    // Handle hash navigation after page load
+    const hash = window.location.hash;
+    setCurrentHash(hash);
+    if (hash) {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  }, [pathname]);
+
+  useEffect(() => {}, []);
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -209,16 +218,18 @@ export function Header({
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           {/* Logo (desktop only) */}
           <div className="hidden md:flex items-center gap-3">
-            <Image
-              src="/images/logo.png"
-              alt="Kwame Obed Logo"
-              width={42}
-              height={42}
-              className={`select-none ${darkMode ? "invert" : ""}`}
-            />
+            <Link href="/">
+              <Image
+                src="/images/logo.png"
+                alt="Kwame Obed Logo"
+                width={42}
+                height={42}
+                className={`select-none ${darkMode ? "invert" : ""}`}
+              />
+            </Link>
 
             <Link
-              href="#"
+              href="/"
               className={`playfair text-2xl font-extrabold tracking-tight transition-opacity duration-300
               ${darkMode ? "text-white" : "text-[#228B22]"}
               ${scrolled ? "opacity-0 pointer-events-none" : "opacity-100"}
@@ -230,13 +241,15 @@ export function Header({
 
           {/* Mobile title (no logo) */}
           <div className="block md:hidden items-center gap-3">
-            <Image
-              src="/images/logo.png"
-              alt="Kwame Obed Logo"
-              width={42}
-              height={42}
-              className={`select-none ${darkMode ? "invert" : ""}`}
-            />
+            <Link href={"/"}>
+              <Image
+                src="/images/logo.png"
+                alt="Kwame Obed Logo"
+                width={42}
+                height={42}
+                className={`select-none ${darkMode ? "invert" : ""}`}
+              />
+            </Link>
           </div>
 
           <nav className="flex gap-6 md:gap-8 items-center">

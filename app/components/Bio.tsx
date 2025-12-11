@@ -3,15 +3,13 @@ import Image from "next/image";
 export function Bio({ darkMode }: { darkMode: boolean }) {
   return (
     <section
-      className={`py-24 px-6 relative overflow-hidden transition-colors duration-500 ${
-        darkMode ? "bg-[#0A0A0A]" : "bg-white"
-      }`}
+      className={`py-24 px-6 relative overflow-hidden transition-colors duration-500 ${darkMode ? "bg-[#0A0A0A]" : "bg-white"
+        }`}
       id="bio"
     >
       <div
-        className={`absolute top-0 right-0 playfair text-[30rem] leading-none pointer-events-none select-none hidden lg:block ${
-          darkMode ? "text-white/5" : "text-[#228B22]/10"
-        }`}
+        className={`absolute top-0 right-0 playfair text-[30rem] leading-none pointer-events-none select-none hidden lg:block ${darkMode ? "text-white/5" : "text-[#228B22]/10"
+          }`}
       >
         &quot;
       </div>
@@ -20,13 +18,12 @@ export function Bio({ darkMode }: { darkMode: boolean }) {
           <div className="relative">
             <div className="relative aspect-[4/5] overflow-hidden">
               <div
-                className={`absolute -bottom-4 -left-4 w-full h-full -z-10 ${
-                  darkMode ? "bg-white" : "bg-[#228B22]"
-                }`}
+                className={`absolute -bottom-4 -left-4 w-full h-full -z-10 ${darkMode ? "bg-white" : "bg-[#228B22]"
+                  }`}
               ></div>
               <Image
                 src="/images/portrait_2.jpeg"
-                alt="Kwame Obed Portrait"
+                alt="Kwame Obed - Ghanaian comedian portrait photo"
                 width={800}
                 height={1000}
                 className={`w-full h-full object-cover`}
@@ -34,19 +31,23 @@ export function Bio({ darkMode }: { darkMode: boolean }) {
             </div>
           </div>
           <div className="relative z-10">
+            <h2
+              className={`playfair text-3xl md:text-4xl font-bold mb-6 ${darkMode ? "text-white" : "text-[#1A1A1A]"
+                }`}
+            >
+              About Kwame Obed
+            </h2>
             <blockquote
-              className={`playfair text-2xl md:text-3xl italic leading-relaxed mb-8 ${
-                darkMode ? "text-white/90" : "text-[#1B6B1B]"
-              }`}
+              className={`playfair text-2xl md:text-3xl italic leading-relaxed mb-8 ${darkMode ? "text-white/90" : "text-[#1B6B1B]"
+                }`}
             >
               &quot;I discovered my calling in 2021, and I haven&apos;t looked
               back. Comedy isn&apos;t just laughter. It&apos;s therapy, release,
               and pure joy.&quot;
             </blockquote>
             <p
-              className={`leading-loose mb-4 ${
-                darkMode ? "text-white/80" : "text-[#1A1A1A]/80"
-              }`}
+              className={`leading-loose mb-4 ${darkMode ? "text-white/80" : "text-[#1A1A1A]/80"
+                }`}
             >
               Born on January 12th, Kwame Obed is a rising force in Ghanaian
               comedy who discovered his calling in standup in 2021. Since then,
@@ -60,9 +61,8 @@ export function Bio({ darkMode }: { darkMode: boolean }) {
               proved he&apos;s not just arriving, he&apos;s already here.
             </p>
             <p
-              className={`leading-loose mb-8 ${
-                darkMode ? "text-white/80" : "text-[#1A1A1A]/80"
-              }`}
+              className={`leading-loose mb-8 ${darkMode ? "text-white/80" : "text-[#1A1A1A]/80"
+                }`}
             >
               What sets Kwame apart is his raw energy, quick wit, and genuine
               connection with every crowd he faces. Whether he&apos;s performing

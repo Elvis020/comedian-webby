@@ -80,16 +80,16 @@ export const mediaItems = [
     type: "video",
     videoId: "yBfDo9t-o8E",
     thumbnail: "/images/yt_thumbnail.jpg",
-    title: "Kwame Obed went hard on Napo And Bawumia 😂🤣",
+    title: "Kwame Obed comedy - Political satire on Napo and Bawumia",
   },
   {
     type: "image",
     src: "/images/audience_laughing.jpeg",
-    title: "Comedy Vibes",
+    title: "Kwame Obed live comedy show - Audience laughing",
   },
   {
     type: "image",
     src: "/images/people_laughing_p1.jpeg",
-    title: "Laughing Moments",
+    title: "Kwame Obed performance - Comedy fans enjoying the show",
   },
 ];

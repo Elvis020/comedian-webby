@@ -193,7 +193,7 @@ function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
             >
               <Image
                 src={show.flyer}
-                alt={`${show.venue} event flyer`}
+                alt={`Kwame Obed comedy show at ${show.venue} - Event flyer`}
                 fill
                 className="object-cover transition-transform duration-300 group-hover/flyer:scale-110"
                 sizes="200px"
@@ -315,7 +315,7 @@ function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
             <div className="relative w-full aspect-[3/4]">
               <Image
                 src={show.flyer}
-                alt={`${show.venue} event flyer`}
+                alt={`Kwame Obed comedy show at ${show.venue} - Full event flyer details`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 500px"

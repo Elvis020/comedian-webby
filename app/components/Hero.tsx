@@ -6,7 +6,7 @@ export function Hero({ darkMode }: { darkMode: boolean }) {
   return (
     <section
       id="hero"
-      className={`min-h-screen flex items-center relative pt-32 overflow-hidden transition-colors duration-500 ${
+      className={`min-h-screen flex items-center relative overflow-hidden transition-colors duration-500 ${
         darkMode ? "bg-[#0A0A0A]" : "bg-[#FAFAFA]"
       }`}
     >
@@ -40,18 +40,17 @@ export function Hero({ darkMode }: { darkMode: boolean }) {
               <span>Ghana&apos;s Finest • Comedian</span>
             </div>
             <h1
-              className={`playfair text-6xl md:text-8xl font-black leading-none tracking-tight mb-6 ${
+              className={`playfair italic text-6xl md:text-8xl font-black leading-none tracking-tight mb-6 ${
                 darkMode ? "text-white" : "text-[#1A1A1A]"
               }`}
             >
-              Laughter
-              <span
-                className={`block italic ${
+                Laughter Without Borders
+              {/*<span
+                className={`block italic text-4xl md:text-5xl ${
                   darkMode ? "text-white/90" : "text-[#228B22]"
                 }`}
               >
-                Without Borders
-              </span>
+              </span>*/}
             </h1>
             <p
               className={`text-lg leading-relaxed max-w-md mb-8 ${
@@ -100,7 +99,7 @@ export function Hero({ darkMode }: { darkMode: boolean }) {
               ></div>
               <Image
                 src="/images/image00028.webp"
-                alt="Kwame Obed"
+                alt="Comedian Kwame Obed performing stand-up comedy on stage in Ghana"
                 width={800}
                 height={1067}
                 priority
