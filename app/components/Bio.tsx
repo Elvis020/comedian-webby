@@ -72,34 +72,6 @@ export function Bio({ darkMode }: { darkMode: boolean }) {
               It&apos;s a mission: to make the world a happier place, one joke
               at a time.
             </p>
-            <div
-              className={`flex gap-10 pt-6 border-t ${
-                darkMode ? "border-white/10" : "border-[#1A1A1A]/10"
-              }`}
-            >
-              {[
-                { num: "50+", label: "Countries" },
-                { num: "2M+", label: "Followers" },
-                { num: "500+", label: "Shows" },
-              ].map((stat, i) => (
-                <div key={i}>
-                  <div
-                    className={`playfair text-4xl font-extrabold ${
-                      darkMode ? "text-white" : "text-[#228B22]"
-                    }`}
-                  >
-                    {stat.num}
-                  </div>
-                  <div
-                    className={`space-mono text-[10px] uppercase tracking-widest mt-1 ${
-                      darkMode ? "text-white/60" : "text-[#1A1A1A]/60"
-                    }`}
-                  >
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>

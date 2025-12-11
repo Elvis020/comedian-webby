@@ -1,52 +1,57 @@
 "use client";
 import { useState, useEffect } from "react";
 import { upcomingShows } from "@/lib/consts";
-import Link from "next/link";
 import Image from "next/image";
 
 export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
   const headliningShows = upcomingShows.filter(
-    (show) => show.type === "main" || !show.type
+    (show) => show.type === "main" || !show.type,
   );
   const featuredShows = upcomingShows.filter(
-    (show) => show.type === "featured"
+    (show) => show.type === "featured",
   );
 
   return (
     <section
-      className={`py-24 px-6 transition-colors duration-500 relative overflow-hidden ${darkMode ? "bg-[#1A1A1A]" : "bg-[#F5F5F5]"
-        }`}
+      className={`py-24 px-6 transition-colors duration-500 relative overflow-hidden ${
+        darkMode ? "bg-[#1A1A1A]" : "bg-[#F5F5F5]"
+      }`}
       id="shows"
     >
       {/* Artistic Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Large decorative circle - top right */}
         <div
-          className={`absolute -top-32 -right-32 w-96 h-96 rounded-full ${darkMode ? "bg-[#228B22]/10" : "bg-[#228B22]/5"
-            }`}
+          className={`absolute -top-32 -right-32 w-96 h-96 rounded-full ${
+            darkMode ? "bg-[#228B22]/10" : "bg-[#228B22]/5"
+          }`}
         />
         {/* Smaller circle - bottom left */}
         <div
-          className={`absolute -bottom-20 -left-20 w-64 h-64 rounded-full ${darkMode ? "bg-white/5" : "bg-[#228B22]/8"
-            }`}
+          className={`absolute -bottom-20 -left-20 w-64 h-64 rounded-full ${
+            darkMode ? "bg-white/5" : "bg-[#228B22]/8"
+          }`}
         />
         {/* Radial gradient glow */}
         <div
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full blur-3xl ${darkMode ? "bg-[#228B22]/5" : "bg-[#228B22]/3"
-            }`}
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full blur-3xl ${
+            darkMode ? "bg-[#228B22]/5" : "bg-[#228B22]/3"
+          }`}
         />
       </div>
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-12">
           <span
-            className={`space-mono text-[10px] uppercase tracking-[0.3em] ${darkMode ? "text-white" : "text-[#228B22]"
-              }`}
+            className={`space-mono text-[10px] uppercase tracking-[0.3em] ${
+              darkMode ? "text-white" : "text-[#228B22]"
+            }`}
           >
             Up Next
           </span>
           <h2
-            className={`playfair text-4xl md:text-5xl font-extrabold tracking-tight mt-2 ${darkMode ? "text-white" : "text-[#1A1A1A]"
-              }`}
+            className={`playfair text-4xl md:text-5xl font-extrabold tracking-tight mt-2 ${
+              darkMode ? "text-white" : "text-[#1A1A1A]"
+            }`}
           >
             Upcoming Shows
           </h2>
@@ -56,8 +61,9 @@ export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
           {/* Headlining Section */}
           <div>
             <h3
-              className={`playfair text-2xl font-bold mb-8 ${darkMode ? "text-white/80" : "text-[#1A1A1A]/80"
-                }`}
+              className={`playfair text-2xl font-bold mb-8 ${
+                darkMode ? "text-white/80" : "text-[#1A1A1A]/80"
+              }`}
             >
               🎤 Headlining
             </h3>
@@ -70,21 +76,24 @@ export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
             ) : (
               /* Empty State Placeholder */
               <div
-                className={`flex flex-col items-center justify-center py-16 px-8 rounded-2xl border-2 border-dashed ${darkMode
-                  ? "border-white/20 bg-white/5"
-                  : "border-[#228B22]/20 bg-[#228B22]/5"
-                  }`}
+                className={`flex flex-col items-center justify-center py-16 px-8 rounded-2xl border-2 border-dashed ${
+                  darkMode
+                    ? "border-white/20 bg-white/5"
+                    : "border-[#228B22]/20 bg-[#228B22]/5"
+                }`}
               >
                 <div className="text-5xl mb-4">🎭</div>
                 <h4
-                  className={`playfair text-xl font-bold mb-2 ${darkMode ? "text-white/70" : "text-[#1A1A1A]/70"
-                    }`}
+                  className={`playfair text-xl font-bold mb-2 ${
+                    darkMode ? "text-white/70" : "text-[#1A1A1A]/70"
+                  }`}
                 >
                   No Headlining Shows Yet
                 </h4>
                 <p
-                  className={`space-mono text-sm text-center max-w-md ${darkMode ? "text-white/50" : "text-[#1A1A1A]/50"
-                    }`}
+                  className={`space-mono text-sm text-center max-w-md ${
+                    darkMode ? "text-white/50" : "text-[#1A1A1A]/50"
+                  }`}
                 >
                   Stay tuned! Kwame Obed&apos;s solo shows will be announced
                   here soon.
@@ -97,8 +106,9 @@ export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
           {featuredShows.length > 0 && (
             <div>
               <h3
-                className={`playfair text-2xl font-bold mb-8 ${darkMode ? "text-white/80" : "text-[#1A1A1A]/80"
-                  }`}
+                className={`playfair text-2xl font-bold mb-8 ${
+                  darkMode ? "text-white/80" : "text-[#1A1A1A]/80"
+                }`}
               >
                 ⭐ Featured
               </h3>
@@ -117,29 +127,61 @@ export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
 
 function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showShortCode, setShowShortCode] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
+  const [copied, setCopied] = useState(false);
   const hasFlyer = show.flyer !== null && show.flyer !== undefined;
+  const hasShortCode = show.shortCode !== null && show.shortCode !== undefined;
 
   // Lock body scroll when modal is open
   useEffect(() => {
     if (isExpanded) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     // Cleanup on unmount
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isExpanded]);
+
+  const handleShortCodeClick = () => {
+    setIsRotating(true);
+    setTimeout(() => {
+      setIsRotating(false);
+      setShowShortCode(true);
+    }, 600);
+  };
+
+  const handleCopyShortCode = async () => {
+    if (show.shortCode) {
+      await navigator.clipboard.writeText(show.shortCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  // Auto-reset shortCode display after 4 seconds
+  useEffect(() => {
+    if (showShortCode) {
+      const timer = setTimeout(() => {
+        setShowShortCode(false);
+        setCopied(false);
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [showShortCode]);
 
   return (
     <>
       {/* Main Card */}
       <div
-        className={`group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl ${darkMode
-          ? "bg-[#252525] shadow-lg shadow-black/20"
-          : "bg-white shadow-lg shadow-black/10"
-          }`}
+        className={`group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl ${
+          darkMode
+            ? "bg-[#252525] shadow-lg shadow-black/20"
+            : "bg-white shadow-lg shadow-black/10"
+        }`}
       >
         <div className="flex h-44">
           {/* Left Side - Flyer Thumbnail (33%) */}
@@ -168,47 +210,83 @@ function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
             {/* Date Badge */}
             <div className="flex items-start gap-4">
               <div
-                className={`shrink-0 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-xl ${darkMode ? "bg-white/10" : "bg-[#228B22]/10"
-                  }`}
+                className={`shrink-0 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-xl ${
+                  darkMode ? "bg-white/10" : "bg-[#228B22]/10"
+                }`}
               >
                 <div
-                  className={`playfair text-lg sm:text-xl font-extrabold text-center leading-tight ${darkMode ? "text-white" : "text-[#228B22]"
-                    }`}
+                  className={`playfair text-lg sm:text-xl font-extrabold text-center leading-tight ${
+                    darkMode ? "text-white" : "text-[#228B22]"
+                  }`}
                 >
                   {show.date.split(" ")[0]}
                   <br />
-                  <span className="text-sm sm:text-base">{show.date.split(" ")[1]}</span>
+                  <span className="text-sm sm:text-base">
+                    {show.date.split(" ")[1]}
+                  </span>
                 </div>
               </div>
 
               {/* Info */}
               <div className="flex-1 min-w-0">
                 <div
-                  className={`syne text-base sm:text-lg font-semibold line-clamp-1 ${darkMode ? "text-white" : "text-[#1A1A1A]"
-                    }`}
+                  className={`syne text-base sm:text-lg font-semibold line-clamp-1 ${
+                    darkMode ? "text-white" : "text-[#1A1A1A]"
+                  }`}
                 >
                   {show.venue}
                 </div>
                 <div
-                  className={`space-mono text-[10px] sm:text-xs uppercase tracking-wider mt-1 ${darkMode ? "text-white/60" : "text-[#1A1A1A]/60"
-                    }`}
+                  className={`space-mono text-[10px] sm:text-xs uppercase tracking-wider mt-1 ${
+                    darkMode ? "text-white/60" : "text-[#1A1A1A]/60"
+                  }`}
                 >
                   {show.city} • {show.time}
                 </div>
               </div>
             </div>
 
-            {/* Button - with proper z-index for mobile */}
-            <div className="mt-3 relative z-20">
-              <Link
-                href={show.ticketLink}
-                className={`inline-block space-mono text-xs font-bold uppercase tracking-wider px-4 py-2.5 border-2 rounded-lg transition-all text-center ${darkMode
-                  ? "bg-white text-[#0A0A0A] border-white hover:bg-gray-200 hover:border-gray-200 active:bg-gray-300"
-                  : "bg-[#228B22] text-white border-[#228B22] hover:bg-[#1a6b1a] hover:border-[#1a6b1a] active:bg-[#145414]"
+            {/* Buttons - with proper z-index for mobile */}
+            <div className="mt-3 relative z-20 flex gap-2 flex-wrap">
+              {hasShortCode && !showShortCode && (
+                <button
+                  onClick={handleShortCodeClick}
+                  className={`inline-block space-mono text-xs font-bold uppercase tracking-wider px-4 py-2.5 border-2 rounded-lg transition-all text-center ${
+                    isRotating ? "animate-spin-360" : ""
+                  } ${
+                    darkMode
+                      ? "bg-transparent text-white border-white hover:bg-white hover:text-[#0A0A0A]"
+                      : "bg-transparent text-[#228B22] border-[#228B22] hover:bg-[#228B22] hover:text-white"
                   }`}
-              >
-                Get Tickets
-              </Link>
+                >
+                  Get Tickets
+                </button>
+              )}
+              {hasShortCode && showShortCode && (
+                <div
+                  className={`flex items-center gap-2 px-3 py-2 border-2 rounded-lg ${darkMode ? "bg-white/10 border-white/30" : "bg-[#228B22]/10 border-[#228B22]/30"}`}
+                >
+                  <span
+                    className={`space-mono text-sm font-bold ${darkMode ? "text-white" : "text-[#228B22]"}`}
+                  >
+                    {show.shortCode}
+                  </span>
+                  <button
+                    onClick={handleCopyShortCode}
+                    className={`space-mono text-xs font-bold px-2 py-1 rounded transition-all ${
+                      copied
+                        ? darkMode
+                          ? "bg-green-500 text-white"
+                          : "bg-green-600 text-white"
+                        : darkMode
+                          ? "bg-white text-[#0A0A0A] hover:bg-gray-200"
+                          : "bg-[#228B22] text-white hover:bg-[#1a6b1a]"
+                    }`}
+                  >
+                    {copied ? "✓" : "Copy"}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

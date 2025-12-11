@@ -99,6 +99,46 @@ body {
     }
 }
 
+@keyframes spin360 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes flipIn {
+    from {
+        transform: rotateY(90deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes flip360 {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 .animate-fade-up {
     animation: fadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
@@ -108,6 +148,18 @@ body {
 }
 .animate-scroll {
     animation: scrollPulse 2s ease infinite;
+}
+.animate-spin-360 {
+    animation: spin360 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.animate-flip-in {
+    animation: flipIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.animate-flip-360 {
+    animation: flip360 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.animate-slide-in-right {
+    animation: slideInRight 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 ::view-transition-old(root),

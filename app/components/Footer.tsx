@@ -98,7 +98,7 @@ export function Footer({ darkMode }: { darkMode: boolean }) {
               Chat on WhatsApp
             </Link>
 
-            <Link href="#" className={`${linkBase} ${themeLink}`}>
+            <Link href="/#tickets" className={`${linkBase} ${themeLink}`}>
               🎫 Buy Tickets
             </Link>
 

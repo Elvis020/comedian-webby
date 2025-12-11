@@ -1,9 +1,11 @@
- import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 export function Hero({ darkMode }: { darkMode: boolean }) {
+  const phone = "233599226332";
   return (
     <section
+      id="hero"
       className={`min-h-screen flex items-center relative pt-32 overflow-hidden transition-colors duration-500 ${
         darkMode ? "bg-[#0A0A0A]" : "bg-[#FAFAFA]"
       }`}
@@ -62,7 +64,8 @@ export function Hero({ darkMode }: { darkMode: boolean }) {
             </p>
             <div className="flex gap-4 flex-wrap">
               <Link
-                href="#tickets"
+                href={`https://wa.me/${phone}`}
+                target="_blank"
                 className={`inline-flex items-center gap-3 px-6 py-4 space-mono text-xs font-bold uppercase tracking-wider border-2 transition-all ${
                   darkMode
                     ? "bg-white text-[#0A0A0A] border-white hover:bg-transparent hover:text-white"
