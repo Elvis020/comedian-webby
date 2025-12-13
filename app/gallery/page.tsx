@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useTheme } from "@/app/context/ThemeContext";
 import { GalleryGrid } from "@/app/components/GalleryGrid";
 import { Footer } from "@/app/components/Footer";
 import { Header } from "@/app/components/Header";
@@ -37,22 +37,7 @@ const galleryImages = [
 ];
 
 export default function GalleryPage() {
-  const [mounted, setMounted] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
-
-  useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem("darkMode");
-    if (saved !== null) {
-      setDarkMode(saved === "true");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("darkMode", JSON.stringify(darkMode));
-    }
-  }, [darkMode, mounted]);
+  const { darkMode, setDarkMode, mounted } = useTheme();
 
   if (!mounted) {
     return null;

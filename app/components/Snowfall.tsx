@@ -89,7 +89,12 @@ export function Snowfall() {
             });
         }
 
-        setSnowflakes(flakes);
+        // Use setTimeout to avoid "setting state synchronously within an effect" error
+        const timer = setTimeout(() => {
+            setSnowflakes(flakes);
+        }, 0);
+
+        return () => clearTimeout(timer);
     }, []);
 
     // Return null if Christmas mode is disabled or no snowflakes

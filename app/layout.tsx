@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { playfair, spaceMono, syne } from "@/lib/fonts";
 import Script from "next/script";
+import { ThemeProvider } from "./context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Kwame Obed - Comedian | Ghanaian Stand-Up Comedy & Shows",
@@ -141,7 +142,7 @@ export default function RootLayout({
       <body
         className={`antialiased ${playfair.variable} ${spaceMono.variable} ${syne.variable}`}
       >
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

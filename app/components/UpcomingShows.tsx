@@ -1,13 +1,40 @@
+
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { upcomingShows, CHRISTMAS_MODE } from "@/lib/consts";
 import Image from "next/image";
+import type { UpcomingShows } from "@/lib/types";
 
 export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
-  const headliningShows = upcomingShows.filter(
+  // Filter out past shows with performance optimization
+  const activeShows = useMemo(() => {
+    const now = new Date();
+    // Reset time to start of today for comparison (so shows today are included)
+    now.setHours(0, 0, 0, 0);
+
+    return upcomingShows.filter((show) => {
+      try {
+        // Parse "MM-DD-YYYY" format (e.g., "12-12-2025")
+        const [monthStr, dayStr, yearStr] = show.date.split("-");
+
+        const month = parseInt(monthStr) - 1; // JS months are 0-indexed
+        const day = parseInt(dayStr);
+        const year = parseInt(yearStr);
+
+        if (isNaN(month) || isNaN(day) || isNaN(year)) return true; // Keep if invalid
+
+        const showDate = new Date(year, month, day);
+        return showDate >= now;
+      } catch (e) {
+        return true;
+      }
+    });
+  }, []);
+
+  const headliningShows = activeShows.filter(
     (show) => show.type === "main" || !show.type,
   );
-  const featuredShows = upcomingShows.filter(
+  const featuredShows = activeShows.filter(
     (show) => show.type === "featured",
   );
 
@@ -19,17 +46,14 @@ export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
     >
       {/* Artistic Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Large decorative circle - top right */}
         <div
           className={`absolute -top-32 -right-32 w-96 h-96 rounded-full ${darkMode ? "bg-[#228B22]/10" : "bg-[#228B22]/5"
             }`}
         />
-        {/* Smaller circle - bottom left */}
         <div
           className={`absolute -bottom-20 -left-20 w-64 h-64 rounded-full ${darkMode ? "bg-white/5" : "bg-[#228B22]/8"
             }`}
         />
-        {/* Radial gradient glow */}
         <div
           className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full blur-3xl ${darkMode ? "bg-[#228B22]/5" : "bg-[#228B22]/3"
             }`}
@@ -102,7 +126,7 @@ export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
                 ⭐ Featured
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {featuredShows.map((show) => (
+                {featuredShows.map((show: UpcomingShows) => (
                   <ShowCard key={show.id} show={show} darkMode={darkMode} />
                 ))}
               </div>
@@ -114,7 +138,13 @@ export function UpcomingShows({ darkMode }: { darkMode: boolean }) {
   );
 }
 
-function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
+function ShowCard({
+  show,
+  darkMode,
+}: {
+  show: UpcomingShows;
+  darkMode: boolean;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showShortCode, setShowShortCode] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
@@ -211,11 +241,20 @@ function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
                   className={`playfair text-lg sm:text-xl font-extrabold text-center leading-tight ${darkMode ? "text-white" : "text-[#228B22]"
                     }`}
                 >
-                  {show.date.split(" ")[0]}
-                  <br />
-                  <span className="text-sm sm:text-base">
-                    {show.date.split(" ")[1]}
-                  </span>
+                  {/* Parse and display date from MM-DD-YYYY */}
+                  {(() => {
+                    const [m, d] = show.date.split("-");
+                    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+                    const monthIndex = parseInt(m) - 1;
+                    const monthName = monthNames[monthIndex] || m;
+                    return (
+                      <>
+                        {monthName}
+                        <br />
+                        <span className="text-sm sm:text-base">{d}</span>
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
 
@@ -225,6 +264,9 @@ function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
                   className={`syne text-base sm:text-lg font-semibold line-clamp-1 ${darkMode ? "text-white" : "text-[#1A1A1A]"
                     }`}
                 >
+                  <div className="flex items-center gap-2 mb-1">
+                    {/* Badge removed for minimalist inline style */}
+                  </div>
                   {show.venue}
                 </div>
                 <div
@@ -232,6 +274,34 @@ function ShowCard({ show, darkMode }: { show: any; darkMode: boolean }) {
                     }`}
                 >
                   {show.city} • {show.time}
+                  {(() => {
+                    const now = new Date();
+                    now.setHours(0, 0, 0, 0);
+                    const [mStr, dStr, yStr] = show.date.split("-");
+                    const sMonth = parseInt(mStr) - 1;
+                    const sDay = parseInt(dStr);
+                    const sYear = parseInt(yStr);
+                    const showDate = new Date(sYear, sMonth, sDay);
+
+                    // Check if current month and year
+                    if (
+                      now.getMonth() === sMonth &&
+                      now.getFullYear() === sYear
+                    ) {
+                      const diffTime = showDate.getTime() - now.getTime();
+                      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                      if (diffDays >= 0) {
+                        return (
+                          <span className={`${darkMode ? "text-green-400 font-bold" : "text-[#228B22] font-bold"} block sm:inline mt-0.5 sm:mt-0`}>
+                            <span className="hidden sm:inline mx-2">•</span>
+                            {diffDays === 0 ? "TODAY" : `IN ${diffDays} DAYS`}
+                          </span>
+                        );
+                      }
+                    }
+                    return null;
+                  })()}
                 </div>
               </div>
             </div>

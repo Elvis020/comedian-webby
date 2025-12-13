@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useTheme } from "./context/ThemeContext";
 import {
   Bio,
   Footer,
@@ -11,22 +11,7 @@ import {
 } from "./components";
 
 export default function ComedianWebsite() {
-  const [mounted, setMounted] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
-
-  useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem("darkMode");
-    if (saved !== null) {
-      setDarkMode(saved === "true");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("darkMode", JSON.stringify(darkMode));
-    }
-  }, [darkMode, mounted]);
+  const { darkMode, setDarkMode, mounted } = useTheme();
 
   if (!mounted) {
     return null;

@@ -1,24 +1,8 @@
-"use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export default function NotFound() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  // Ensure hydration-safe rendering
-  useEffect(() => {
-    setMounted(true);
-
-    const saved = localStorage.getItem("darkMode");
-    if (saved === "true") {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setDarkMode(false);
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
+  const { darkMode, mounted } = useTheme();
 
   // Prevent mismatch between SSR and CSR
   if (!mounted) {
@@ -103,11 +87,10 @@ export default function NotFound() {
         <div className="pt-4">
           <Link
             href="/"
-            className={`space-mono text-xs font-bold uppercase tracking-wider px-5 py-3 border-2 transition-all ${
-              darkMode
+            className={`space-mono text-xs font-bold uppercase tracking-wider px-5 py-3 border-2 transition-all ${darkMode
                 ? "bg-white text-[#0A0A0A] border-white hover:bg-transparent hover:text-white"
                 : "bg-[#228B22] text-white border-[#228B22] hover:bg-[#1B6B1B] hover:border-[#1B6B1B]"
-            }`}
+              }`}
           >
             Go Home
             <span className="ml-2">→</span>

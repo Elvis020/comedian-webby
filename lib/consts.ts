@@ -1,3 +1,5 @@
+import { UpcomingShows } from "./types";
+
 // 🎄 FESTIVE MODE - Set to false to disable all Christmas decorations
 export const CHRISTMAS_MODE = true;
 
@@ -20,10 +22,10 @@ export const socials = [
   },
 ];
 
-export const upcomingShows = [
+export const upcomingShows: UpcomingShows[] = [
   {
     id: 1,
-    date: "DEC 12",
+    date: "12-12-2025",
     venue: "2927",
     city: "Accra,Temera Street",
     time: "7:00 PM",
@@ -34,7 +36,7 @@ export const upcomingShows = [
   },
   {
     id: 2,
-    date: "DEC 20",
+    date: "12-20-2025",
     venue: "Bukom Boxing Arena",
     city: "Accra",
     time: "7:00 PM",
@@ -45,7 +47,7 @@ export const upcomingShows = [
   },
   {
     id: 3,
-    date: "DEC 25",
+    date: "12-25-2025",
     venue: "Longford Royal Centre",
     city: "Kumasi",
     time: "6:30 PM",
@@ -56,7 +58,7 @@ export const upcomingShows = [
   },
   {
     id: 4,
-    date: "DEC 26",
+    date: "12-26-2025",
     venue: "Accra - 37",
     city: "Accra",
     time: "TBA",
@@ -67,7 +69,7 @@ export const upcomingShows = [
   },
   {
     id: 5,
-    date: "DEC 27",
+    date: "12-27-2025",
     venue: "Rotary Centre, Comm5",
     city: "Tema",
     time: "7:00 PM",
