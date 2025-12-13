@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { useTheme } from "@/app/context/ThemeContext";
 
@@ -88,8 +90,8 @@ export default function NotFound() {
           <Link
             href="/"
             className={`space-mono text-xs font-bold uppercase tracking-wider px-5 py-3 border-2 transition-all ${darkMode
-                ? "bg-white text-[#0A0A0A] border-white hover:bg-transparent hover:text-white"
-                : "bg-[#228B22] text-white border-[#228B22] hover:bg-[#1B6B1B] hover:border-[#1B6B1B]"
+              ? "bg-white text-[#0A0A0A] border-white hover:bg-transparent hover:text-white"
+              : "bg-[#228B22] text-white border-[#228B22] hover:bg-[#1B6B1B] hover:border-[#1B6B1B]"
               }`}
           >
             Go Home
